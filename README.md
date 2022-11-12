@@ -19,6 +19,14 @@ should be able to
 [-] Determine if the type is an array
 [ ] Get size taken up by object in memory
 
+Validate memory regions
+-----------------------
+
+we can't be sure that the pointer we are give is valid. Because of this,
+we should be able to check if a pointer is within a valid memory region
+
+[ ] check if a pointer points to a valid region of memory
+
 Malloc Introspection
 --------------------
 
