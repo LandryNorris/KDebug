@@ -1,0 +1,14 @@
+package=objc
+language=Objective-C
+headers=objc/runtime.h
+
+---
+
+typedef struct {
+    Class isa;
+} objc_structure_mock;
+
+typedef struct {
+    Class objectClass;
+    void *objectMemory;
+} memory_object_structure;

@@ -1,0 +1,13 @@
+package=memory
+language=Objective-C
+headers=malloc/malloc.h Foundation/Foundation.h
+
+---
+
+kern_return_t get_zones(task_t task, memory_reader_t* reader, vm_address_t **addresses, unsigned *count) {
+    malloc_get_all_zones(task, reader, addresses, count);
+}
+
+kern_return_t introspection_enumerator(malloc_introspection_t* introspection, task_t task, void* callback, unsigned type, vm_address_t zone_address, memory_reader_t* reader, vm_range_recorder_t* recorder) {
+    return introspection->enumerator(task, callback, type, zone_address, reader, recorder);
+}
