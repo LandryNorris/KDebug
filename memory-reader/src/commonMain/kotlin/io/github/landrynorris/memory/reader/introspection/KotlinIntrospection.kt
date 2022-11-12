@@ -17,7 +17,7 @@ object KotlinIntrospection {
     fun getClassName(ptr: COpaquePointer): String? {
         if(!ptr.isObjcObject || !ptr.isKotlinObject) return null
 
-        val typeInfo = ptr.getTypeInfo()?.reinterpret<TypeInfo>()?.pointed
+        val typeInfo = ptr.getTypeInfo()
 
         val packageNamePtr = typeInfo?.packageName_?.remove3Bit()
         val relativeNamePtr = typeInfo?.relativeName_?.remove3Bit()
@@ -27,14 +27,20 @@ object KotlinIntrospection {
         return "$packageName.$relativeName"
     }
 
+    fun isArrayType(ptr: COpaquePointer): Boolean {
+        if(!ptr.isObjcObject || !ptr.isKotlinObject) return false
+
+        return ptr.getTypeInfo()?.isArrayType() ?: false
+    }
+
     /**
      * The receiver should be an ObjHeader*
      * The first field of an ObjHeader is a TypeInfo*
      */
-    private fun COpaquePointer.getTypeInfo(): COpaquePointer? {
+    private fun COpaquePointer.getTypeInfo(): TypeInfo? {
         val typeInfoPtr = reinterpret<COpaquePointerVar>()[0]?.remove3Bit() ?: return null
         if(typeInfoPtr.verifyTypeInfo()) {
-            return typeInfoPtr
+            return typeInfoPtr.reinterpret<TypeInfo>().pointed
         }
         return null
     }
@@ -64,6 +70,9 @@ object KotlinIntrospection {
         return (0 until length).map { header.content[it].toInt().toChar() }
             .toCharArray().concatToString()
     }
+
+    //Arrays in Kotlin have their bits inverted, which for 2s complement, means they are less than 0
+    private fun TypeInfo.isArrayType() = instanceSize_ < 0
 }
 
 // 1111 1110

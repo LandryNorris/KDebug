@@ -4,7 +4,7 @@ plugins {
 
 kotlin {
     val iosTargets = listOf(iosX64(), iosArm64(), iosSimulatorArm64())
-    val macTargets = listOf(macosArm64())
+    val macTargets = listOf(macosArm64(), macosX64())
 
     iosTargets.forEach {
         it.binaries {
