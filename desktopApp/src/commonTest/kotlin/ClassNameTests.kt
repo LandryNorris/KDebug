@@ -1,4 +1,3 @@
-import io.github.landrynorris.memory.reader.MemoryReader
 import io.github.landrynorris.memory.reader.introspection.KotlinIntrospection
 import kotlin.test.Test
 import kotlin.test.assertEquals
@@ -16,11 +15,11 @@ class ClassNameTests {
 
     @Test
     fun testGetReaderClassName() {
-        val reader = MemoryReader()
+        val introspection = KotlinIntrospection
 
-        reader.usePtr {
+        introspection.usePtr {
             assertNotNull(it)
-            assertEquals("io.github.landrynorris.memory.reader.MemoryReader", KotlinIntrospection.getClassName(it))
+            assertEquals("io.github.landrynorris.memory.reader.introspection.KotlinIntrospection", KotlinIntrospection.getClassName(it))
         }
     }
 }

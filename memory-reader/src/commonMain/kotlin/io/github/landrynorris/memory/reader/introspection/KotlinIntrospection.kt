@@ -1,6 +1,5 @@
 package io.github.landrynorris.memory.reader.introspection
 
-import io.github.landrynorris.memory.reader.introspection.ObjCIntrospection.isObjcObject
 import kotlinx.cinterop.*
 
 object KotlinIntrospection {
@@ -15,7 +14,7 @@ object KotlinIntrospection {
      * @param ptr an ObjHeader*
      */
     fun getClassName(ptr: COpaquePointer): String? {
-        if(!ptr.isObjcObject || !ptr.isKotlinObject) return null
+        if(!ptr.isKotlinObject) return null
 
         val typeInfo = ptr.getTypeInfo()
 
@@ -28,7 +27,7 @@ object KotlinIntrospection {
     }
 
     fun isArrayType(ptr: COpaquePointer): Boolean {
-        if(!ptr.isObjcObject || !ptr.isKotlinObject) return false
+        if(!ptr.isKotlinObject) return false
 
         return ptr.getTypeInfo()?.isArrayType() ?: false
     }

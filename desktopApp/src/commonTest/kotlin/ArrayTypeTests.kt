@@ -1,6 +1,8 @@
-import io.github.landrynorris.memory.reader.MemoryReader
 import io.github.landrynorris.memory.reader.introspection.KotlinIntrospection
-import kotlin.test.*
+import kotlin.test.Test
+import kotlin.test.assertFalse
+import kotlin.test.assertNotNull
+import kotlin.test.assertTrue
 
 class ArrayTypeTests {
     @Test
@@ -58,9 +60,9 @@ class ArrayTypeTests {
     }
 
     @Test
-    fun testIsReaderAnArrayType() {
-        val r = MemoryReader()
-        r.usePtr {
+    fun testIsIntrospectionAnArrayType() {
+        val o = KotlinIntrospection
+        o.usePtr {
             assertNotNull(it)
             assertFalse(KotlinIntrospection.isArrayType(it))
         }

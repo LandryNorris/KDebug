@@ -4,8 +4,9 @@ plugins {
 
 kotlin {
     val macTargets = listOf(macosArm64(), macosX64())
+    val linuxTargets = listOf(linuxArm64(), linuxX64())
 
-    macTargets.forEach {
+    (macTargets + linuxTargets).forEach {
         it.binaries {
             executable("memorytest")
         }

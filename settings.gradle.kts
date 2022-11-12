@@ -15,6 +15,6 @@ dependencyResolutionManagement {
 
 rootProject.name = "KDebug"
 include(":androidApp")
-include(":macApp")
+include(":desktopApp")
 include(":shared")
 include(":memory-reader")
